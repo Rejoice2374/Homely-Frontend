@@ -204,11 +204,9 @@ const WishlistPage = () => {
                             aria-label="toggle wishlist"
                             onClick={() => handleWishlistToggle(prop._id)}
                           >
-                            {isWishlisted ? (
-                              <FavoriteOutlined sx={{ color: text }} />
-                            ) : (
-                              <FavoriteBorderOutlined sx={{ color: text }} />
-                            )}
+                            <FavoriteOutlined
+                              sx={{ color: palette.primary.main }}
+                            />
                           </IconButton>
                           <Typography>{wishlistCount}</Typography>
                           <IconButton aria-label="share">
