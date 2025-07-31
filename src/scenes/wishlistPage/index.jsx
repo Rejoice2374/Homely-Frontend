@@ -26,6 +26,7 @@ import { setWishlist, setProperties } from "../../state";
 import { useNavigate } from "react-router-dom";
 import UserImage from "../../components/UserImage";
 import defaultImage from "../../assets/default.jpg";
+import PayButton from "../../Paystack";
 
 const WishlistPage = () => {
   const { palette } = useTheme();
@@ -196,9 +197,12 @@ const WishlistPage = () => {
                         ml={1}
                         width="100%"
                       >
-                        <Button variant="contained">
-                          {prop.leaseType === "sale" ? "Buy" : "Rent"}
-                        </Button>
+                        <PayButton
+                          email={user.email}
+                          amount={prop.propertyPrice}
+                          name={user.Firstname}
+                          label={prop.leaseType === "sale" ? "Buy" : "Rent"}
+                        />
                         <Box display="flex" alignItems="center">
                           <IconButton
                             aria-label="toggle wishlist"

@@ -23,6 +23,7 @@ import { setWishlist } from "../../state";
 import Navbar from "../Navbar";
 import Wishlist from "../widgets/WishlistWidget.jsx";
 import WidgetWrapper from "../../components/WidgetWrapper";
+import PayButton from "../../Paystack";
 
 const PropertyDetails = () => {
   const { palette } = useTheme();
@@ -30,6 +31,7 @@ const PropertyDetails = () => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
   const wishlist = useSelector((state) => state.wishlist);
+  const user = useSelector((state) => state.user.user);
   const [property, setProperty] = useState(null);
   const [loading, setLoading] = useState(true);
   const [snackbar, setSnackbar] = useState({
@@ -196,9 +198,12 @@ const PropertyDetails = () => {
             </Box>
 
             <Box mt={2}>
-              <Button variant="contained">
-                {property.leaseType === "sale" ? "Buy" : "Rent"}
-              </Button>
+              <PayButton
+                email={user.email}
+                amount={property.propertyPrice}
+                name={user.Firstname}
+                label={property.leaseType === "sale" ? "Buy" : "Rent"}
+              />
             </Box>
           </Box>
 
