@@ -1,0 +1,168 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  Box,
+  Typography,
+  Card,
+  CardMedia,
+  CardContent,
+  CardHeader,
+  CardActions,
+  IconButton,
+  Grid,
+  CircularProgress,
+  useTheme,
+} from "@mui/material";
+import { FavoriteOutlined, ShareOutlined } from "@mui/icons-material";
+import UserImage from "../../components/UserImage";
+import defaultImage from "../../assets/default.jpg";
+import { setProperties, setProperty } from "../../state";
+import { useNavigate } from "react-router-dom";
+
+const PropertyList = () => {
+  const { palette } = useTheme();
+  const medium = palette.neutral.medium;
+  const main = palette.neutral.main;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.user.user);
+  const token = useSelector((state) => state.token);
+  const properties = useSelector((state) => state.properties);
+  const loggedUserId = user?._id;
+
+  const fetchProperties = async () => {
+    try {
+      const res = await fetch("http://localhost:3001/api/property", {
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      dispatch(setProperties({ properties: data }));
+    } catch (err) {
+      console.error("Failed to fetch properties", err.message);
+    }
+  };
+
+  const patchWishlist = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:3001/api/property/${id}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId: loggedUserId }),
+      });
+      const updatedProperty = await response.json();
+      dispatch(setProperty({ property: updatedProperty }));
+    } catch (err) {
+      console.error("Failed to toggle wishlist", err.message);
+    }
+  };
+
+  useEffect(() => {
+    if (token) fetchProperties();
+  }, [token]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  return (
+    <Box p={2}>
+      <Typography variant="h4" mb={2}>
+        All Properties
+      </Typography>
+
+      {!properties ? (
+        <CircularProgress />
+      ) : properties.length === 0 ? (
+        <Typography>No properties found.</Typography>
+      ) : (
+        <Grid
+          container
+          spacing={{ xs: 2, md: 3 }}
+          columns={{ xs: 2, sm: 8, md: 8, lg: 12 }}
+        >
+          {properties.map((prop) => {
+            const isWishlisted = prop.wishlistedBy?.[loggedUserId] || false;
+            const wishlistCount = Object.keys(prop.wishlistedBy || {}).length;
+
+            return (
+              <Grid size={{ xs: 2, sm: 4, md: 4 }} key={prop._id}>
+                <Card sx={{ maxWidth: 345 }}>
+                  <CardHeader
+                    avatar={
+                      <UserImage
+                        image={prop.agentImage || defaultImage}
+                        size="40px"
+                      />
+                    }
+                    title={
+                      <Typography
+                        variant="h6"
+                        color={main}
+                        fontWeight="500"
+                        sx={{ "&:hover": { color: medium, cursor: "pointer" } }}
+                        onClick={() =>
+                          navigate(`/profile/${prop.userId || user._id}`)
+                        }
+                      >
+                        {prop.agentName}
+                      </Typography>
+                    }
+                    subheader={new Date(
+                      prop.createdAt || Date.now()
+                    ).toLocaleDateString()}
+                  />
+                  <CardMedia
+                    component="img"
+                    height="194"
+                    image={prop.propertyImages?.[0] || defaultImage}
+                    alt={prop.propertyName}
+                  />
+                  <CardContent>
+                    <Box
+                      display="flex"
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
+                      <Box>
+                        <Typography variant="h6">
+                          {prop.propertyName}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          {prop.propertyType} · {prop.propertyLocation}
+                        </Typography>
+                      </Box>
+                      <Box>
+                        <Typography
+                          variant="subtitle2"
+                          fontWeight="bold"
+                          mt={1}
+                        >
+                          ₦{prop.propertyPrice?.toLocaleString()}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </CardContent>
+                  <CardActions disableSpacing>
+                    <IconButton
+                      aria-label="add to favorites"
+                      onClick={() => patchWishlist(prop._id)}
+                      color={isWishlisted ? "error" : "default"}
+                    >
+                      <FavoriteOutlined />
+                    </IconButton>
+                    <Typography>{wishlistCount}</Typography>
+                    <IconButton aria-label="share">
+                      <ShareOutlined />
+                    </IconButton>
+                  </CardActions>
+                </Card>
+              </Grid>
+            );
+          })}
+        </Grid>
+      )}
+    </Box>
+  );
+};
+
+export default PropertyList;
