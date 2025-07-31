@@ -71,7 +71,7 @@ const UploadProperty = () => {
       images.forEach((img) => formData.append("pictures", img));
 
       const response = await fetch(
-        "http://localhost:3001/api/property/upload",
+        "https://homely-api.vercel.app//api/property/upload",
         {
           method: "POST",
           headers: { Authorization: `Bearer ${token}` },

@@ -49,7 +49,7 @@ const PropertyDetails = () => {
   const fetchProperty = async () => {
     try {
       const res = await fetch(
-        `http://localhost:3001/api/property/${propertyId}`,
+        `https://homely-api.vercel.app//api/property/${propertyId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -66,8 +66,8 @@ const PropertyDetails = () => {
   const toggleWishlist = async () => {
     try {
       const endpoint = isWishlisted
-        ? `http://localhost:3001/api/wishlist/remove/${propertyId}`
-        : "http://localhost:3001/api/wishlist/add";
+        ? `https://homely-api.vercel.app//api/wishlist/remove/${propertyId}`
+        : "https://homely-api.vercel.app//api/wishlist/add";
       const method = isWishlisted ? "DELETE" : "POST";
       const body = method === "POST" ? JSON.stringify({ propertyId }) : null;
 

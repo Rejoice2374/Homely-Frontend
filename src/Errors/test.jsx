@@ -35,7 +35,7 @@ const PropertyList = () => {
   // const whitelists = useSelector((state) => state.user.whitelists);
 
   const patchWishlist = async () => {
-    const response = await fetch(`http://localhost:3001/property/${id}`, {
+    const response = await fetch(`https://homely-api.vercel.app//property/${id}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -48,7 +48,7 @@ const PropertyList = () => {
 
   const fetchProperties = async () => {
     try {
-      const res = await fetch("http://localhost:3001/api/property", {
+      const res = await fetch("https://homely-api.vercel.app//api/property", {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
       });

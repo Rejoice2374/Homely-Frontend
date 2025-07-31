@@ -10,7 +10,7 @@ const PropertiesWidget = () => {
 
   const getMyProperties = async () => {
     const response = await fetch(
-      "http://localhost:3001/properties/myproperty",
+      "https://homely-api.vercel.app//properties/myproperty",
       {
         method: "GET",
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },

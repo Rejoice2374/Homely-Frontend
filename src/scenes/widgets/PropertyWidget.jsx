@@ -64,10 +64,13 @@ const Property = () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch("http://localhost:3001/api/property/myproperty", {
-        method: "GET",
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await fetch(
+        "https://homely-api.vercel.app//api/property/myproperty",
+        {
+          method: "GET",
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
       if (!res.ok) {
         const errData = await res.json();
@@ -115,7 +118,7 @@ const Property = () => {
 
     try {
       const res = await fetch(
-        `http://localhost:3001/api/property/update/${selectedPropertyId}`,
+        `https://homely-api.vercel.app//api/property/update/${selectedPropertyId}`,
         {
           method: "PUT",
           headers: {
@@ -147,7 +150,7 @@ const Property = () => {
   const handleDelete = async (propertyId) => {
     try {
       const res = await fetch(
-        `http://localhost:3001/api/property/${propertyId}`,
+        `https://homely-api.vercel.app//api/property/${propertyId}`,
         {
           method: "DELETE",
           headers: { Authorization: `Bearer ${token}` },

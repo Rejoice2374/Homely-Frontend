@@ -32,7 +32,7 @@ const PropertyList = () => {
 
   const fetchProperties = async () => {
     try {
-      const res = await fetch("http://localhost:3001/api/property", {
+      const res = await fetch("https://homely-api.vercel.app//api/property", {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -45,14 +45,17 @@ const PropertyList = () => {
 
   const patchWishlist = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3001/api/property/${id}`, {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userId: loggedUserId }),
-      });
+      const response = await fetch(
+        `https://homely-api.vercel.app//api/property/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ userId: loggedUserId }),
+        }
+      );
       const updatedProperty = await response.json();
       dispatch(setProperty({ property: updatedProperty }));
     } catch (err) {

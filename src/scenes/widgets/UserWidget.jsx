@@ -54,10 +54,13 @@ const UserWidget = ({ picture }) => {
 
   const getUser = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/api/user/me`, {
-        method: "GET",
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await fetch(
+        `https://homely-api.vercel.app//api/user/me`,
+        {
+          method: "GET",
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       const data = await response.json();
       setUser(data);
       // Initialize edit form with fetched data
@@ -110,7 +113,7 @@ const UserWidget = ({ picture }) => {
     setSuccess("");
 
     try {
-      const res = await fetch(`http://localhost:3001/api/user/me`, {
+      const res = await fetch(`https://homely-api.vercel.app//api/user/me`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

@@ -64,10 +64,13 @@ const Form = () => {
     }
     formData.append("picture", values.picture); // ✅ only once
 
-    const savedUserResponse = await fetch("http://localhost:3001/api/upload", {
-      method: "POST",
-      body: formData,
-    });
+    const savedUserResponse = await fetch(
+      "https://homely-api.vercel.app//api/upload",
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
 
     const savedUser = await savedUserResponse.json();
     onSubmitProps.resetForm();
@@ -80,11 +83,14 @@ const Form = () => {
   };
 
   const login = async (values, onSubmitProps) => {
-    const loggedInResponse = await fetch("http://localhost:3001/api/user", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
-    });
+    const loggedInResponse = await fetch(
+      "https://homely-api.vercel.app//api/user",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      }
+    );
     const loggedIn = await loggedInResponse.json();
     onSubmitProps.resetForm();
 
