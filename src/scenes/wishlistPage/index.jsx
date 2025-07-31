@@ -10,6 +10,7 @@ import {
   CardHeader,
   CardActions,
   IconButton,
+  Button,
   Snackbar,
   Alert,
   CircularProgress,
@@ -191,21 +192,29 @@ const WishlistPage = () => {
                       <Box
                         display="flex"
                         alignItems="center"
-                        justifyContent="flex-end"
+                        justifyContent="space-between"
+                        ml={1}
                         width="100%"
                       >
-                        <IconButton
-                          aria-label="toggle wishlist"
-                          onClick={() => handleWishlistToggle(prop._id)}
-                        >
-                          <FavoriteOutlined
-                            sx={{ color: palette.primary.main }}
-                          />
-                        </IconButton>
-                        <Typography>{wishlistCount}</Typography>
-                        <IconButton aria-label="share">
-                          <ShareOutlined />
-                        </IconButton>
+                        <Button variant="contained">
+                          {prop.leaseType === "sale" ? "Buy" : "Rent"}
+                        </Button>
+                        <Box display="flex" alignItems="center">
+                          <IconButton
+                            aria-label="toggle wishlist"
+                            onClick={() => handleWishlistToggle(prop._id)}
+                          >
+                            {isWishlisted ? (
+                              <FavoriteOutlined sx={{ color: text }} />
+                            ) : (
+                              <FavoriteBorderOutlined sx={{ color: text }} />
+                            )}
+                          </IconButton>
+                          <Typography>{wishlistCount}</Typography>
+                          <IconButton aria-label="share">
+                            <ShareOutlined />
+                          </IconButton>
+                        </Box>
                       </Box>
                     </CardActions>
                   </Card>
