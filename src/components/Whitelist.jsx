@@ -25,7 +25,7 @@ const Whitelist = ({ whitelistUser }) => {
 
   const patchWhitelist = async () => {
     const response = await fetch(
-      `https://homely-api.vercel.app//api/user/me/${whitelistUser._id}`,
+      `https://homely-api.vercel.app/api/user/me/${whitelistUser._id}`,
       {
         method: "PATCH",
         headers: {

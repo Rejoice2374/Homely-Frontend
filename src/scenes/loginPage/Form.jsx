@@ -65,7 +65,7 @@ const Form = () => {
     formData.append("picture", values.picture); // ✅ only once
 
     const savedUserResponse = await fetch(
-      "https://homely-api.vercel.app//api/upload",
+      "https://homely-api.vercel.app/api/upload",
       {
         method: "POST",
         body: formData,
@@ -84,7 +84,7 @@ const Form = () => {
 
   const login = async (values, onSubmitProps) => {
     const loggedInResponse = await fetch(
-      "https://homely-api.vercel.app//api/user",
+      "https://homely-api.vercel.app/api/user",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

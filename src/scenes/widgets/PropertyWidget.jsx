@@ -65,7 +65,7 @@ const Property = () => {
     setError(null);
     try {
       const res = await fetch(
-        "https://homely-api.vercel.app//api/property/myproperty",
+        "https://homely-api.vercel.app/api/property/myproperty",
         {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },
@@ -118,7 +118,7 @@ const Property = () => {
 
     try {
       const res = await fetch(
-        `https://homely-api.vercel.app//api/property/update/${selectedPropertyId}`,
+        `https://homely-api.vercel.app/api/property/update/${selectedPropertyId}`,
         {
           method: "PUT",
           headers: {
@@ -150,7 +150,7 @@ const Property = () => {
   const handleDelete = async (propertyId) => {
     try {
       const res = await fetch(
-        `https://homely-api.vercel.app//api/property/${propertyId}`,
+        `https://homely-api.vercel.app/api/property/${propertyId}`,
         {
           method: "DELETE",
           headers: { Authorization: `Bearer ${token}` },
