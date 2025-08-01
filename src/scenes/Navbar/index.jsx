@@ -188,7 +188,10 @@ const Navbar = () => {
                 <LightMode sx={{ color: neutralDark, fontSize: "25px" }} />
               )}
             </IconButton>
-            <FavoriteOutlined sx={{ fontSize: "25px" }} />
+            <FavoriteOutlined
+              onClick={() => navigate("/wishlist")}
+              sx={{ fontSize: "25px" }}
+            />
             <Notifications sx={{ fontSize: "25px" }} />
             <Help sx={{ fontSize: "25px" }} />
             {UserMenu}
