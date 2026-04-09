@@ -20,19 +20,19 @@ const Whitelist = ({ whitelistUser }) => {
   const medium = palette.neutral.medium;
 
   const isWhitelisted = whitelists.some(
-    (user) => user._id === whitelistUser._id
+    (user) => user._id === whitelistUser._id,
   );
 
   const patchWhitelist = async () => {
     const response = await fetch(
-      `https://homely-api.vercel.app/api/user/me/${whitelistUser._id}`,
+      `https://homely-api.vercel.app/api/user/${whitelistUser._id}`,
       {
         method: "PATCH",
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-      }
+      },
     );
     const data = await response.json();
     dispatch(setWhitelists({ whitelists: data }));

@@ -73,11 +73,11 @@ const Form = () => {
       formData.append("picture", values.picture);
 
       const savedUserResponse = await fetch(
-        "https://homely-api.vercel.app/api/upload",
+        "https://homely-api.vercel.app/api/register",
         {
           method: "POST",
           body: formData,
-        }
+        },
       );
 
       if (!savedUserResponse.ok) {
@@ -100,12 +100,12 @@ const Form = () => {
   const login = async (values, onSubmitProps) => {
     try {
       const loggedInResponse = await fetch(
-        "https://homely-api.vercel.app/api/user",
+        "https://homely-api.vercel.app/api/user/login",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(values),
-        }
+        },
       );
 
       const loggedIn = await loggedInResponse.json();
