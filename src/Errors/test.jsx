@@ -35,16 +35,19 @@ const PropertyList = () => {
   // const whitelists = useSelector((state) => state.user.whitelists);
 
   const patchWishlist = async () => {
-    const response = await fetch(`https://homely-api.vercel.app/property/${id}`, {
-      method: "PUT",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
+    const response = await fetch(
+      `https://homely-api.vercel.app/api/property/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
       },
-    });
+    );
     const updatedProperty = await response.json();
-    dispatch(setProperty((property: updatedProperty));)
-  }
+    dispatch(setProperty({ property: updatedProperty }));
+  };
 
   const fetchProperties = async () => {
     try {
@@ -110,7 +113,7 @@ const PropertyList = () => {
                     </Typography>
                   }
                   subheader={new Date(
-                    prop.createdAt || Date.now()
+                    prop.createdAt || Date.now(),
                   ).toLocaleDateString()}
                 />
                 <CardMedia
